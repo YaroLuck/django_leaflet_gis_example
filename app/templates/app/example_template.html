@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% load leaflet_tags %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% leaflet_js %}
+    {% leaflet_css %}
+    {% load static %}
+</head>
+<body>
+{% leaflet_map "main" callback="main_map_init" %}
+{{ example_geo_model.location }}
+<script type="text/javascript">
+        function main_map_init (map, options) {
+            // Use Leaflet API here
+            let lon = {{ example_geo_model.location.x }};
+            let lat = {{ example_geo_model.location.y }};
+            map.setView([lat, lon], 12);
+            L.marker([lat, lon]).addTo(map);
+        };
+</script>
+
+<style>
+
+        .leaflet-container {  /* all maps */
+            width:  600px;
+            height: 400px;
+        }
+
+        #specialbigmap {
+            height: 800px;
+        }
+
+        /* Resize the "display_raw" textbox */
+        .django-leaflet-raw-textarea {
+            width: 100%;
+        }
+
+    </style>
+
+</body>
+
+
+</html>
